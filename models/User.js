@@ -14,17 +14,18 @@ const userSchema = new Schema(
       unique: true,
       required: true,
       trim: true,
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
     },
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'thought',
+        ref: 'Thought',
       },
     ],
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
       },
     ]
   },
@@ -36,12 +37,9 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.virtual('friendCount'), {
-  ref: 'user',
-  localField: '_id',
-  foreignField: 'friends',
-  count: true
-}
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
 const User = model('user', userSchema);
 
