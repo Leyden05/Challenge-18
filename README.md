@@ -17,7 +17,7 @@ Once the files are installed, open the folder in your personal workspace
 This application is under a MIT license.
 
 ## Contributions
-
+Thanks again to Dominique Nix for helping me with the setup, and to my tutor Bobbi Tarkanay for helping organize the project.
 
 ## Tests
 na
