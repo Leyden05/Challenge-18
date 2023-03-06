@@ -1,4 +1,4 @@
-(https://img.shields.io/hexpm/l/plug) (https://www.apache.org/licenses/LICENSE-2.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)] (https://www.apache.org/licenses/LICENSE-2.0)
 # Social Media API
 
 ## Description
