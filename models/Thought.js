@@ -1,38 +1,44 @@
 const { Schema, model } = require('mongoose');
-const { formateDate } = require('../utils/format.js')
+// const { formateDate } = require('../utils/format.js')
 const reactionSchema = require('./Reaction');
 
-// Schema to create Student model
-const studentSchema = new Schema(
+
+const thoughtSchema = new Schema(
   {
-    thoughtText: {
-      type: String,
-      required: true,
-      minlength: 1,
-      maxlength: 280,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      get: formateDate,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    reactions: [reactionSchema],
+      thoughtText: {
+          type: String,
+          required: true,
+          maxlength: 280,
+      },
+      createdAt: {
+          type: Date,
+          get: ((date) => {
+              date = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) 
+              return date
+          }),
+          default: Date.now,
+      },
+      username: {
+          type: String,
+          required: true,
+      },
+      reactions: [reactionSchema],
   },
   {
-    toJSON: {
-      getters: true,
-    },
+      toJSON: {
+          getters: true,
+          virtuals: true,
+      },
+      id: false,
   }
-);
+)
 
+
+// retrieves the length of the user's friends
 thoughtSchema.virtual('reactionCount').get(function () {
   return this.reactions.length;
 });
 
-const Student = model('student', studentSchema);
+const Thought = model('thought', thoughtSchema);
 
-module.exports = Student;
+module.exports = Thought;
